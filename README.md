@@ -37,3 +37,4 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 npx shadcn-ui@latest init
 npm install uploadthing @uploadthing/react
+npm install @clerk/nextjs
