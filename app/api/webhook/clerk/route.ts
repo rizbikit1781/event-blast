@@ -1,6 +1,9 @@
 import { Webhook } from "svix";
 import { headers } from "next/headers";
 import { WebhookEvent } from "@clerk/nextjs/server";
+import { createUser, deleteUser, updateUser } from "@/lib/actions/user.actions";
+import { clerkClient } from "@clerk/nextjs";
+import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
   // You can find this in the Clerk Dashboard -> Webhooks -> choose the endpoint
@@ -53,24 +56,57 @@ export async function POST(req: Request) {
   const { id } = evt.data;
   const eventType = evt.type;
 
+  //web hook event, CREATE new user
   if (eventType === "user.created") {
     const { id, email_addresses, image_url, first_name, last_name, username } =
       evt.data;
 
-    const user = { 
-        clerkId: id,
-        email: email_addresses,
-        photo: image_url,
-        firstName: first_name,
-        lastName: last_name,
-        username: username,
+    const user = {
+      clerkId: id,
+      email: email_addresses[0].email_address,
+      photo: image_url,
+      firstName: first_name,
+      lastName: last_name,
+      username: username!,
+    };
+
+    const newUser = await createUser(user);
+
+    if (newUser) {
+      await clerkClient.users.updateUserMetadata(id, {
+        publicMetadata: {
+          userId: newUser._id,
+        },
+      });
     }
-
-    // const newUser = await createUser(user);
-
-
+    return NextResponse.json({ message: "OK", user: newUser });
   }
 
+  //web hook event, UPDATE user
+  if (eventType === "user.updated") {
+    const { id, image_url, first_name, last_name, username } = evt.data;
+
+    const user = {
+      username: username!,
+      firstName: first_name,
+      lastName: last_name,
+      photo: image_url,
+    };
+
+    const updatedUser = await updateUser(id, user);
+
+    
+    return NextResponse.json({ message: "OK", user: updatedUser});
+  }
+
+//web hook event, DELETE user
+if (eventType === "user.deleted") {
+  const { id } = evt.data;
+
+  const deletedUser = await deleteUser(id!);
+
+  return NextResponse.json({ message: "OK", user: deletedUser});
+}
 
 
   return new Response("", { status: 200 });
