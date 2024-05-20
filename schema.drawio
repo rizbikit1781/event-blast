@@ -1,0 +1,16 @@
+<mxfile host="65bd71144e">
+    <diagram id="5rpMciiN7cQI5BhB4U9i" name="Page-1">
+        <mxGraphModel dx="979" dy="442" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="2" value="Event" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;fillColor=default;" vertex="1" parent="1">
+                    <mxGeometry x="50" y="50" width="160" height="220" as="geometry"/>
+                </mxCell>
+                <mxCell id="3" value="id: string&#10;title: string&#10;description: string&#10;location: string&#10;imageUrl: string&#10;startDateTime: Date&#10;endDateTime: Date&#10;categoryId: string&#10;price: string&#10;isFree: boolean&#10;url: string" style="align=left;strokeColor=#666666;fillColor=#f5f5f5;spacingLeft=4;fontSize=13;verticalAlign=top;resizable=0;rotatable=0;part=1;fontColor=#333333;" vertex="1" parent="2">
+                    <mxGeometry y="30" width="160" height="190" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
