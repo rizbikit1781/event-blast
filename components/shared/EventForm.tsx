@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button"
@@ -21,7 +21,7 @@ type EventFormProps = {
 const EventForm = ({ userId, type }: EventFormProps) => {
 
     const initialValues = eventDefaultValues;
-  
+    const [files, setFiles] = useState<File[]>([])
   
     const form = useForm<z.infer<typeof eventFormSchema>>({
     resolver: zodResolver(eventFormSchema),
@@ -84,7 +84,11 @@ const EventForm = ({ userId, type }: EventFormProps) => {
             render={({ field }) => (
             <FormItem className="w-full">
                 <FormControl className="h-72">
-                    <FileUploader />
+                    <FileUploader 
+                        onFieldChange={field.onChange}
+                        imageUrl={field.value}
+                        setFiles={setFiles}
+                    />
                 </FormControl>
                 <FormMessage />
             </FormItem>
