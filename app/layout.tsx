@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   title: "Event Blast",
   description: "Event Organize Application",
   icons: {
-    icon: '/assets/images/logo.svg'
+    icon: '/favicon.icon'
   } 
 };
 
