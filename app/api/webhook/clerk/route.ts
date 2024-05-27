@@ -57,17 +57,17 @@ export async function POST(req: Request) {
   const eventType = evt.type;
 
   //web hook event, CREATE new user
-  if (eventType === "user.created") {
+  if (eventType === 'user.created') {
     const { id, email_addresses, image_url, first_name, last_name, username } =
       evt.data;
 
     const user = {
       clerkId: id,
       email: email_addresses[0].email_address,
-      photo: image_url,
+      username: username!,
       firstName: first_name,
       lastName: last_name,
-      username: username!,
+      photo: image_url,
     };
 
     const newUser = await createUser(user);
@@ -83,7 +83,7 @@ export async function POST(req: Request) {
   }
 
   //web hook event, UPDATE user
-  if (eventType === "user.updated") {
+  if (eventType === 'user.updated') {
     const { id, image_url, first_name, last_name, username } = evt.data;
 
     const user = {
@@ -100,7 +100,7 @@ export async function POST(req: Request) {
   }
 
 //web hook event, DELETE user
-if (eventType === "user.deleted") {
+if (eventType === 'user.deleted') {
   const { id } = evt.data;
 
   const deletedUser = await deleteUser(id!);
