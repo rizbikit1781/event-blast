@@ -15,7 +15,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { FileUploader } from "./FileUploader";
 import Image from "next/image";
 import { useUploadThing } from '@/lib/uploadthing'
-import createEvent from "@/lib/actions/event.actions";
+import { createEvent } from "@/lib/actions/event.actions";
 
 
 import DatePicker from "react-datepicker";
