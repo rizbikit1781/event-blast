@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { Button } from '../ui/button'
 import { IEvent } from '@/lib/database/models/event.model'
 import { loadStripe } from '@stripe/stripe-js';
+import { checkoutOrder } from '@/lib/actions/order.actions';
 
 
 loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
@@ -21,7 +22,16 @@ const Checkout = ({ event, userId} : {event : IEvent, userId : string} ) => {
       }, []);
 
     const onCheckout = async () => {
-        console.log('Checkout')
+      const order = {
+        eventTitle: event.title,
+        eventId: event._id,
+        price: event.price,
+        isFree: event.isFree,
+        buyerId: userId
+      }
+
+        await checkoutOrder(order);
+        
     }
   
     return (
